@@ -76,36 +76,39 @@ export default function Words() {
   const [words, setWords] = useState([]);
   useEffect(() => {
     if (level == "easy") {
-      let wordsList = randomWords({ exactly: 25, maxLength: 4, minLength: 3 });
+      let wordsList = randomWords({ exactly: 30, maxLength: 4, minLength: 3 });
       setWords(wordsList);
     } else if (level == "medium") {
-      let wordsList = randomWords({ exactly: 25, maxLength: 5, minLength: 5 });
+      let wordsList = randomWords({ exactly: 30, maxLength: 6, minLength: 5 });
       setWords(wordsList);
     } else {
-      let wordsList = randomWords({ exactly: 25, minLength: 6 });
+      let wordsList = randomWords({ exactly: 30, minLength: 6 });
       setWords(wordsList);
+      console.log(wordsList);
     }
   }, [level]);
 
   const word = words.map((singleWord) => {
-    let level =
-      singleWord.length < 5
-        ? "easy"
-        : singleWord.length === 5
-        ? "medium"
-        : "hard";
-    return (
-      <>
-        <Link
-          to="/drawing"
-          state={{
-            level: {level},
-          }}
-        >
-          <Button variant="outlined">{singleWord}</Button>
-        </Link>
-      </>
-    );
+    let chossenLevel=level
+    if (
+      (level === "easy" && singleWord.length < 5) ||
+      (level === "medium" && singleWord.length == 5) ||
+      (level === "hard" && singleWord.length > 5)
+    ) {
+      console.log(chossenLevel);
+      return (
+        <div className="wordsButton">
+          <Link
+            to="/drawing"
+            state={{
+              level: chossenLevel,
+            }}
+          >
+            <Button variant="outlined">{singleWord}</Button>
+          </Link>
+        </div>
+      );
+    }
   });
 
   if (level == null) {
@@ -149,85 +152,81 @@ export default function Words() {
             </Image>
           </ImageButton>
         </Box>
-          <Box
-            className="level"
-            sx={{
-              display: "flex",
-              flexWrap: "wrap",
-              minWidth: 300,
-              width: "100%",
+        <Box
+          className="level"
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            minWidth: 300,
+            width: "100%",
+          }}
+        >
+          <ImageButton
+            onClick={() => setLevel("medium")}
+            focusRipple
+            key="medium"
+            style={{
+              width: "40%",
             }}
           >
-            <ImageButton
-              onClick={() => setLevel("medium")}
-              focusRipple
-              key="medium"
-              style={{
-                width: "40%",
-              }}
-            >
-              <ImageSrc
-                style={{ backgroundColor: "#46bad4", opacity: "0.4" }}
-              />
-              <ImageBackdrop className="MuiImageBackdrop-root" />
-              <Image>
-                <Typography
-                  component="span"
-                  variant="subtitle1"
-                  color="inherit"
-                  sx={{
-                    position: "relative",
-                    p: 4,
-                    pt: 2,
-                    pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
-                  }}
-                >
-                  Medium (5 letters)
-                  <ImageMarked className="MuiImageMarked-root" />
-                </Typography>
-              </Image>
-            </ImageButton>
-          </Box>
+            <ImageSrc style={{ backgroundColor: "#46bad4", opacity: "0.4" }} />
+            <ImageBackdrop className="MuiImageBackdrop-root" />
+            <Image>
+              <Typography
+                component="span"
+                variant="subtitle1"
+                color="inherit"
+                sx={{
+                  position: "relative",
+                  p: 4,
+                  pt: 2,
+                  pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
+                }}
+              >
+                Medium (5 letters)
+                <ImageMarked className="MuiImageMarked-root" />
+              </Typography>
+            </Image>
+          </ImageButton>
+        </Box>
 
-          <Box
-            className="level"
-            sx={{
-              display: "flex",
-              flexWrap: "wrap",
-              minWidth: 300,
-              width: "100%",
+        <Box
+          className="level"
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            minWidth: 300,
+            width: "100%",
+          }}
+        >
+          <ImageButton
+            onClick={() => setLevel("hard")}
+            focusRipple
+            key="hard"
+            style={{
+              width: "40%",
             }}
           >
-            <ImageButton
-              onClick={() => setLevel("hard")}
-              focusRipple
-              key="hard"
-              style={{
-                width: "40%",
-              }}
-            >
-              <ImageSrc
-                style={{ backgroundColor: "#46bad4", opacity: "0.8" }}
-              />
-              <ImageBackdrop className="MuiImageBackdrop-root" />
-              <Image>
-                <Typography
-                  component="span"
-                  variant="subtitle1"
-                  color="inherit"
-                  sx={{
-                    position: "relative",
-                    p: 4,
-                    pt: 2,
-                    pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
-                  }}
-                >
-                  Hard (6 letters)
-                  <ImageMarked className="MuiImageMarked-root" />
-                </Typography>
-              </Image>
-            </ImageButton>
-          </Box>
+            <ImageSrc style={{ backgroundColor: "#46bad4", opacity: "0.8" }} />
+            <ImageBackdrop className="MuiImageBackdrop-root" />
+            <Image>
+              <Typography
+                component="span"
+                variant="subtitle1"
+                color="inherit"
+                sx={{
+                  position: "relative",
+                  p: 4,
+                  pt: 2,
+                  pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
+                }}
+              >
+                Hard (6 letters)
+                <ImageMarked className="MuiImageMarked-root" />
+              </Typography>
+            </Image>
+          </ImageButton>
+        </Box>
       </>
     );
   } else {
