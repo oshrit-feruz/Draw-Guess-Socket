@@ -6,14 +6,15 @@ import "./style.css";
 class Board extends React.Component {
   timeout;
   socket = io.connect("http://localhost:5000");
-
+  
   ctx;
   isDrawing = false;
-
+  
   constructor(props) {
     super(props);
-
+    
     this.socket.on("canvas-data", function (data) {
+  
       let root = this;
       let interval = setInterval(function () {
         if (root.isDrawing) return;

@@ -1,26 +1,22 @@
 let app = require("express")();
-let http = require("http").createServer(app);
-let io = require("socket.io")(http);
+const http = require("http");
+let server = http.createServer(app);
+const socket = require("./socket");
 
-io.on("connection", (socket) => {
-  console.log("User Online");
+app.get("/usersCount", (req, res) => {
+  res.json(allClients.length);
 });
-let allClients = [];
-io.sockets.on("connection", function (socket) {
-  allClients.push(socket);
-  socket.on("canvas-data", (data) => {
-    socket.broadcast.emit("canvas-data", data);
-  });
-
-  socket.on("disconnect", function () {
-    console.log("Got disconnect!");
-
-    let i = allClients.indexOf(socket);
-    allClients.splice(i, 1);
-  });
-  console.log(allClients.length);
+app.get("/gameTime", (req, res) => {
+  if (allClients.length === 6) {
+    res.json(true);
+  } else {
+    res.json(false);
+  }
 });
+
+socket(server);
+
 let server_port = process.env.YOUR_PORT || process.env.PORT || 5000;
-http.listen(server_port, () => {
+server.listen(server_port, () => {
   console.log("Started on : " + server_port);
 });

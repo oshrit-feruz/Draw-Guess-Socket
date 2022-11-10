@@ -1,18 +1,16 @@
 import React from "react";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
-export default function Drawing() {
-  function hideLoader() {
-    $("#loading").hide();
-  }
-
-  $(window).ready(hideLoader);
-  // Strongly recommended: Hide loader after 20 seconds, even if the page hasn't finished loading
-  setTimeout(hideLoader, 90 * 1000);
+import logo from "../loading-gif.gif";
+import axios from "axios";
+export default function Loading() {
+axios.get('http://localhost:5000/usersCount').then((res)=>{
+  console.log(res);
+})
   return (
-    <>
-      <h4>waiting for other player...</h4>
-      <div id="loading"></div>
-    </>
+    <div className="waitingDuo">
+      <h3>waiting for other player...</h3>
+        <img className="waitingGif" src={logo} alt="loading..." />{" "}
+    </div>
   );
 }

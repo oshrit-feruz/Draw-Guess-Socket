@@ -1,7 +1,7 @@
 .App {
   text-align: center;
 }
-.css-vs27xc{
+.css-vs27xc {
   border-radius: 10px !important;
 }
 .css-1p4evgx {
@@ -25,24 +25,32 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-.wordsDiv{
-
+.wordsDiv {
   display: grid;
   justify-items: center;
-  grid-template-columns: auto auto auto;
-
+  grid-template-columns: auto auto;
 }
 .wordsButton {
   margin: 8px;
 }
-#loading {
-  background: url('spinner.gif') no-repeat center center;
-  position: absolute;
-  top: 0;
-  left: 0;
+.waitingGif {
+  width: 60px;
+}
+html,
+body {
+  background-image: url("https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000");
+  height: 100vh;
+  margin: 0;
   height: 100%;
-  width: 100%;
-  z-index: 9999999;
+}
+.css-1rwt2y5-MuiButtonBase-root-MuiButton-root {
+  width: 140px;
+}
+.waitingDuo {
+  margin-top: 40px;
+  display: grid;
+  justify-content: space-evenly;
+  justify-items: center;
 }
 .App-header {
   background-color: #282c34;
@@ -53,10 +61,6 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
-#root {
-  background-image: url("https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000");
-  height: 100vh;
 }
 h1 {
   margin: 0 auto;
