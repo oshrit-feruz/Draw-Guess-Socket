@@ -232,8 +232,10 @@ export default function Words() {
   } else {
     return (
       <>
-        <h1>Choose the word you want to draw</h1>
+      <h1>Choose the word you want to draw</h1>
+      <div className="wordsDiv">
         {word}
+      </div>
       </>
     );
   }

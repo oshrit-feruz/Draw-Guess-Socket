@@ -1,19 +1,48 @@
 .App {
   text-align: center;
 }
-
+.css-vs27xc{
+  border-radius: 10px !important;
+}
+.css-1p4evgx {
+  background-color: transparent !important;
+  border-radius: 10px;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
-
+.css-13t4l7t {
+  margin-left: 10vw;
+  width: 80vw !important;
+  min-width: 20vw !important;
+}
+.css-1p4evgx {
+  border-radius: 8px;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
-.wordsButton{
-  margin:8px
+.wordsDiv{
+
+  display: grid;
+  justify-items: center;
+  grid-template-columns: auto auto auto;
+
+}
+.wordsButton {
+  margin: 8px;
+}
+#loading {
+  background: url('spinner.gif') no-repeat center center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 9999999;
 }
 .App-header {
   background-color: #282c34;
