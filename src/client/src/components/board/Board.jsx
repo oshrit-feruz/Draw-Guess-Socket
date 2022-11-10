@@ -6,23 +6,20 @@ import "./style.css";
 class Board extends React.Component {
   timeout;
   socket = io.connect("http://localhost:5000");
-  
   ctx;
   isDrawing = false;
-  
   constructor(props) {
     super(props);
-    
+
     this.socket.on("canvas-data", function (data) {
-  
-      let root = this;
-      let interval = setInterval(function () {
+      var root = this;
+      var interval = setInterval(function () {
         if (root.isDrawing) return;
         root.isDrawing = true;
         clearInterval(interval);
-        let image = new Image();
-        let canvas = document.querySelector("#board");
-        let ctx = canvas.getContext("2d");
+        var image = new Image();
+        var canvas = document.querySelector("#board");
+        var ctx = canvas.getContext("2d");
         image.onload = function () {
           ctx.drawImage(image, 0, 0);
 
@@ -43,17 +40,17 @@ class Board extends React.Component {
   }
 
   drawOnCanvas() {
-    let canvas = document.querySelector("#board");
+    var canvas = document.querySelector("#board");
     this.ctx = canvas.getContext("2d");
-    let ctx = this.ctx;
+    var ctx = this.ctx;
 
-    let sketch = document.querySelector("#sketch");
-    let sketch_style = getComputedStyle(sketch);
+    var sketch = document.querySelector("#sketch");
+    var sketch_style = getComputedStyle(sketch);
     canvas.width = parseInt(sketch_style.getPropertyValue("width"));
     canvas.height = parseInt(sketch_style.getPropertyValue("height"));
 
-    let mouse = { x: 0, y: 0 };
-    let last_mouse = { x: 0, y: 0 };
+    var mouse = { x: 0, y: 0 };
+    var last_mouse = { x: 0, y: 0 };
 
     /* Mouse Capturing Work */
     canvas.addEventListener(
@@ -90,8 +87,8 @@ class Board extends React.Component {
       false
     );
 
-    let root = this;
-    let onPaint = function () {
+    var root = this;
+    var onPaint = function () {
       ctx.beginPath();
       ctx.moveTo(last_mouse.x, last_mouse.y);
       ctx.lineTo(mouse.x, mouse.y);
@@ -100,7 +97,7 @@ class Board extends React.Component {
 
       if (root.timeout != undefined) clearTimeout(root.timeout);
       root.timeout = setTimeout(function () {
-        let base64ImageData = canvas.toDataURL("image/png");
+        var base64ImageData = canvas.toDataURL("image/png");
         root.socket.emit("canvas-data", base64ImageData);
       }, 1000);
     };

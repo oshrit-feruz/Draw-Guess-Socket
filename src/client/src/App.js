@@ -6,7 +6,6 @@ import Words from "./routes/words";
 import Drawing from "./routes/drawing";
 import Loading from "./routes/waintingPage";
 import { Routes, Route } from "react-router-dom";
-import Container from "./components/container/Container";
 
 function App() {
   return (

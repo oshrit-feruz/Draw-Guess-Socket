@@ -1,7 +1,17 @@
 let app = require("express")();
-const http = require("http");
+import http from "http";
+import { init as initSocket, allClients } from "./socket";
+import cors from "cors";
+import WebSocket from "websocket";
 let server = http.createServer(app);
-const socket = require("./socket");
+initSocket(server);
+
+app.use(
+  cors({
+    credentials: true,
+    origin: true,
+  })
+);
 
 app.get("/usersCount", (req, res) => {
   res.json(allClients.length);
@@ -13,8 +23,6 @@ app.get("/gameTime", (req, res) => {
     res.json(false);
   }
 });
-
-socket(server);
 
 let server_port = process.env.YOUR_PORT || process.env.PORT || 5000;
 server.listen(server_port, () => {
