@@ -1,17 +1,24 @@
 import React from "react";
-import io from "socket.io-client";
 
 import "./style.css";
+import { io } from "socket.io-client";
 
+export const socket = io("http://localhost:5000", {
+  withCredentials: true,
+  extraHeaders: {
+    "my-custom-header": "abcd",
+  },
+});
 class Board extends React.Component {
   timeout;
-  socket = io.connect("https://draw-guess-stream.herokuapp.com");
+
   ctx;
   isDrawing = false;
+
   constructor(props) {
     super(props);
 
-    this.socket.on("canvas-data", function (data) {
+    socket.on("canvas-data", function (data) {
       var root = this;
       var interval = setInterval(function () {
         if (root.isDrawing) return;
@@ -50,11 +57,11 @@ class Board extends React.Component {
     canvas.height = parseInt(sketch_style.getPropertyValue("height"));
 
     var mouse = { x: 0, y: 0 };
-    var last_mouse = { x: 0, y: 1 };
+    var last_mouse = { x: 0, y: 0 };
 
     /* Mouse Capturing Work */
     canvas.addEventListener(
-      "touchmove",
+      "mousemove",
       function (e) {
         last_mouse.x = mouse.x;
         last_mouse.y = mouse.y;
@@ -72,17 +79,17 @@ class Board extends React.Component {
     ctx.strokeStyle = this.props.color;
 
     canvas.addEventListener(
-      "touchstart",
+      "mousedown",
       function (e) {
-        canvas.addEventListener("touchmove", onPaint, false);
+        canvas.addEventListener("mousemove", onPaint, false);
       },
       false
     );
 
     canvas.addEventListener(
-      "touchend",
+      "mouseup",
       function () {
-        canvas.removeEventListener("touchmove", onPaint, false);
+        canvas.removeEventListener("mousemove", onPaint, false);
       },
       false
     );
@@ -98,7 +105,7 @@ class Board extends React.Component {
       if (root.timeout != undefined) clearTimeout(root.timeout);
       root.timeout = setTimeout(function () {
         var base64ImageData = canvas.toDataURL("image/png");
-        root.socket.emit("canvas-data", base64ImageData);
+        socket.emit("canvas-data", base64ImageData);
       }, 1000);
     };
   }

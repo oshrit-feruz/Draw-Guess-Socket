@@ -6,16 +6,18 @@ import { Link } from "react-router-dom";
 import io from "socket.io-client";
 
 function Welcome(props) {
-  // const [users, setUsers] = useState();
   const [route, setRoute] = useState();
 
   useEffect(() => {
     console.log(route);
     console.log(props.users);
-    if (props.id === 1) {
-      setRoute("words");
-    } else if (props.users === 2) {
-      setRoute("waiting");
+    if(props.users===2){
+
+      if (props.id === 1) {
+        setRoute("words");
+      } else if (props.id === 2) {
+        setRoute("waiting");
+      }
     }
   }, [props.users]);
 

@@ -18,7 +18,7 @@
     "react-router": "^6.4.3",
     "react-router-dom": "^6.4.3",
     "react-scripts": "3.4.3",
-    "socket.io-client": "^2.3.1"
+    "socket.io-client": "^4.5.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -41,7 +41,5 @@
       "last 1 safari version"
     ]
   },
-
   "proxy": "http://localhost:5000"
-
 }
