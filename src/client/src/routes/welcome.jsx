@@ -12,7 +12,8 @@ function Welcome() {
   useEffect(() => {
     let mounted = true;
     function getData() {
-      const ws = new WebSocket("ws://draw-guess-stream.herokuapp.com/");
+      let HOST=window.location.origin.replace(/^http/, 'ws')
+      const ws = new WebSocket(HOST);
 
       ws.onmessage = (message) => {
         console.log(message);
@@ -26,7 +27,7 @@ function Welcome() {
   }, []);
 
   useEffect(() => {
-    if (users == 2) {
+    if (users === 2) {
       setRoute("words");
     } else if (users === 4) {
       setRoute("waiting");

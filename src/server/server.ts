@@ -6,6 +6,7 @@ import WebSocket from "websocket";
 import express from "express";
 import path from "path";
 let server = http.createServer(app);
+const PORT = process.env.PORT || 5000;
 initSocket(server);
 
 app.use(
@@ -31,8 +32,4 @@ if (process.env.NODE_ENV === 'production') {
   app.get('*', (_req: any, res: any) => {
     res.sendFile(path.join(__dirname, '../build', 'index.html'))
   })
-}
-let server_port = process.env.YOUR_PORT || process.env.PORT || 5000;
-server.listen(server_port, () => {
-  console.log("Started on : " + server_port);
-});
+}server .listen(PORT, () => console.log(`Listening on ${PORT}`));

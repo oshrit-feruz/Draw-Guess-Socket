@@ -20,14 +20,14 @@ function guid() {
   ).toLowerCase();
 }
 
-export let allClients:any[] = [];
+export let allClients: any[] = [];
 
 
 /**
  *
  * @param {http.Server} server
  */
-export function init(server) {
+export function init(server: http.Server<typeof http.IncomingMessage, typeof http.ServerResponse>) {
   const ws = new WebSocket.server({
     httpServer: server,
   });
@@ -41,43 +41,16 @@ export function init(server) {
     connection.send("hi how are you");
     allClients.push({ cliendID: id, connection });
 
-    connection.on("close", (code, desc) => {
+    connection.on("close", (_code: any, desc: any) => {
       console.log("closed: ", id);
-       allClients = allClients.filter((client) => client.cliendID !== id);
-       console.log(allClients.length);
+      allClients = allClients.filter((client) => client.cliendID !== id);
+      console.log(allClients.length);
     });
 
     console.log(allClients.length);
-    connection.on("message", (data) => {
+    connection.on("message", (data: any) => {
       console.log(data);
     });
   });
 
-  // const io = require("socket.io")(
-  //   server
-  //   // , {
-  //   // cors: {
-  //   //   origin: "*",
-  //   //   methods: ["GET", "POST"],
-  //   //   allowedHeaders: ["my-custom-header"],
-  //   //   credentials: true,
-  //   // },
-  // );
-  // io.on("connection", (socket) => {
-  //   console.log("User Online");
-  // });
-  // io.sockets.on("connection", function (socket) {
-  //   allClients.push(socket);
-  //   socket.on("canvas-data", (data) => {
-  //     socket.broadcast.emit("canvas-data", data);
-  //   });
-
-  //   socket.on("disconnect", function () {
-  //     console.log("Got disconnect!");
-
-  //     let i = allClients.indexOf(socket);
-  //     allClients.splice(i, 1);
-  //   });
-  //   console.log(allClients.length);
-  // });
-};
+}
