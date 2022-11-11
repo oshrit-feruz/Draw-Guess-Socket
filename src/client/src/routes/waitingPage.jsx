@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import logo from "../loading-gif.gif";
 import axios from "axios";
 export default function Loading() {
-  axios.get("https://draw-guess-stream.herokuapp.com/usersCount").then((res) => {
+  axios.get("/usersCount").then((res) => {
     console.log(res.data);
   });
   axios.get("https://draw-guess-stream.herokuapp.com/gameTime").then((res) => {

@@ -5,9 +5,7 @@ import cors from "cors";
 import WebSocket from "websocket";
 import express from "express";
 import path from "path";
-import process from "process";
 let server = http.createServer(app);
-const port = process.env.PORT || 5000;
 initSocket(server);
 
 app.use(
@@ -34,7 +32,7 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.join(__dirname, '../build', 'index.html'))
   })
 }
-
-app.listen(port || 5000, () => {
-  console.log('listen to port ' + port);
+let server_port = process.env.YOUR_PORT || process.env.PORT || 5000;
+server.listen(server_port, () => {
+  console.log("Started on : " + server_port);
 });
