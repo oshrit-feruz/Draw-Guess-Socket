@@ -12,12 +12,12 @@ function Welcome() {
   useEffect(() => {
     let mounted = true;
     function getData() {
-      const ws = new WebSocket("ws://localhost:5000");
+      const ws = new WebSocket("ws://draw-guess-stream.herokuapp.com/");
 
       ws.onmessage = (message) => {
         console.log(message);
       };
-      axios.get("http://localhost:5000/usersCount").then((res) => {
+      axios.get("/usersCount").then((res) => {
         setUsers(res.data);
       });
     }

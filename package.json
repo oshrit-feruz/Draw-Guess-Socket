@@ -1,7 +1,7 @@
 {
     "name": "heroku-starter-project",
     "scripts": {
-        "start": "gulp",
+        "start": "cd ./src/client && npm start",
         "build-client": "cd ./src/client && npm run build",
         "server": "nodemon --watch ./src/server ./src/server/server.js",
         "deploy": "gulp deploy",
@@ -14,6 +14,7 @@
         "body-parser": "^1.20.0",
         "cors": "^2.8.5",
         "create-react-app": "^5.0.1",
+        "dotenv": "^16.0.3",
         "express": "^4.18.1",
         "websocket": "^1.0.34"
     },

@@ -4,7 +4,7 @@ import io from "socket.io-client";
 import Welcome from "./routes/welcome";
 import Words from "./routes/words";
 import Drawing from "./routes/drawing";
-import Loading from "./routes/waintingPage";
+import Loading from "./routes/waitingPage";
 import { Routes, Route } from "react-router-dom";
 
 function App() {

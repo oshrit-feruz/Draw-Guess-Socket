@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import logo from "../loading-gif.gif";
 import axios from "axios";
 export default function Loading() {
-  axios.get("http://localhost:5000/usersCount").then((res) => {
+  axios.get("/usersCount").then((res) => {
     console.log(res.data);
   });
-  axios.get("http://localhost:5000/gameTime").then((res) => {
+  axios.get("/gameTime").then((res) => {
     console.log(res.data);
   });
   return (

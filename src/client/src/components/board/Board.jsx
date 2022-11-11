@@ -5,7 +5,7 @@ import "./style.css";
 
 class Board extends React.Component {
   timeout;
-  socket = io.connect("http://localhost:5000");
+  socket = io.connect("https://draw-guess-stream.herokuapp.com");
   ctx;
   isDrawing = false;
   constructor(props) {
@@ -50,11 +50,11 @@ class Board extends React.Component {
     canvas.height = parseInt(sketch_style.getPropertyValue("height"));
 
     var mouse = { x: 0, y: 0 };
-    var last_mouse = { x: 0, y: 0 };
+    var last_mouse = { x: 0, y: 1 };
 
     /* Mouse Capturing Work */
     canvas.addEventListener(
-      "mousemove",
+      "touchmove",
       function (e) {
         last_mouse.x = mouse.x;
         last_mouse.y = mouse.y;
@@ -72,17 +72,17 @@ class Board extends React.Component {
     ctx.strokeStyle = this.props.color;
 
     canvas.addEventListener(
-      "mousedown",
+      "touchstart",
       function (e) {
-        canvas.addEventListener("mousemove", onPaint, false);
+        canvas.addEventListener("touchmove", onPaint, false);
       },
       false
     );
 
     canvas.addEventListener(
-      "mouseup",
+      "touchend",
       function () {
-        canvas.removeEventListener("mousemove", onPaint, false);
+        canvas.removeEventListener("touchmove", onPaint, false);
       },
       false
     );
