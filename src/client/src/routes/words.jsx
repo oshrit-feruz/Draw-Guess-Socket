@@ -70,7 +70,7 @@ const ImageMarked = styled("span")(({ theme }) => ({
   transition: theme.transitions.create("opacity"),
 }));
 
-export default function Words() {
+export default function Words(props) {
   const [level, setLevel] = useState(null);
   const [words, setWords] = useState([]);
   useEffect(() => {
@@ -88,7 +88,7 @@ export default function Words() {
   }, [level]);
 
   const word = words.map((singleWord) => {
-    let chossenLevel=level
+    let chossenLevel = level;
     if (
       (level === "easy" && singleWord.length < 5) ||
       (level === "medium" && singleWord.length == 5) ||
@@ -96,14 +96,22 @@ export default function Words() {
     ) {
       console.log(chossenLevel);
       return (
-        <div className="wordsButton">
+        <div className="wordsButton" 
+        onClick={()=>
+          props.setChossenWord(singleWord)
+        }
+        key={singleWord}>
           <Link
             to="/drawing"
             state={{
               level: chossenLevel,
             }}
           >
-            <Button variant="outlined">{singleWord}</Button>
+            <Button
+              variant="outlined"
+            >
+              {singleWord}
+            </Button>
           </Link>
         </div>
       );
@@ -231,10 +239,8 @@ export default function Words() {
   } else {
     return (
       <>
-      <h1>Choose the word you want to draw</h1>
-      <div className="wordsDiv">
-        {word}
-      </div>
+        <h1>Choose the word you want to draw</h1>
+        <div className="wordsDiv">{word}</div>
       </>
     );
   }

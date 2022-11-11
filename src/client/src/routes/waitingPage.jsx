@@ -7,7 +7,7 @@ export default function Loading() {
   axios.get("/usersCount").then((res) => {
     console.log(res.data);
   });
-  axios.get("https://draw-guess-stream.herokuapp.com/gameTime").then((res) => {
+  axios.get("/gameTime").then((res) => {
     console.log(res.data);
   });
   return (

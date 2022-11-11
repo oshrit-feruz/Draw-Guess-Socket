@@ -5,34 +5,19 @@ import logo from "../AppLogo.png";
 import { Link } from "react-router-dom";
 import io from "socket.io-client";
 
-function Welcome() {
-  const [users, setUsers] = useState();
+function Welcome(props) {
+  // const [users, setUsers] = useState();
   const [route, setRoute] = useState();
 
   useEffect(() => {
-    let mounted = true;
-    function getData() {
-      let HOST=window.location.origin.replace(/^http/, 'ws')
-      const ws = new WebSocket(HOST);
-
-      ws.onmessage = (message) => {
-        console.log(message);
-      };
-      axios.get("/usersCount").then((res) => {
-        setUsers(res.data);
-      });
-    }
-    getData();
-    return () => (mounted = false);
-  }, []);
-
-  useEffect(() => {
-    if (users === 2) {
+    console.log(route);
+    console.log(props.users);
+    if (props.id === 1) {
       setRoute("words");
-    } else if (users === 4) {
+    } else if (props.users === 2) {
       setRoute("waiting");
     }
-  }, [users]);
+  }, [props.users]);
 
   return (
     <>

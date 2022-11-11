@@ -33,17 +33,15 @@ export function init(server: http.Server<typeof http.IncomingMessage, typeof htt
   });
   ws.on("request", (request) => {
     console.log("connected");
-
-    console.log("connected from:", request.origin);
     const id = guid();
+    allClients.push(id);
 
     const connection = request.accept(null, request.origin);
     connection.send("hi how are you");
-    allClients.push({ cliendID: id, connection });
 
-    connection.on("close", (_code: any, desc: any) => {
+    connection.on("close", (_code: any, _desc: any) => {
       console.log("closed: ", id);
-      allClients = allClients.filter((client) => client.cliendID !== id);
+      allClients.pop()
       console.log(allClients.length);
     });
 
