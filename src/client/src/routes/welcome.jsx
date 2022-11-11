@@ -26,7 +26,7 @@ function Welcome() {
   }, []);
 
   useEffect(() => {
-    if (users === 2) {
+    if (users == 2) {
       setRoute("words");
     } else if (users === 4) {
       setRoute("waiting");

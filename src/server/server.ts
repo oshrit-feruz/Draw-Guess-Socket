@@ -15,10 +15,10 @@ app.use(
   })
 );
 
-app.get("/usersCount", (_req:any, res:any) => {
+app.get("/usersCount", (req:any, res:any) => {
   res.json(allClients.length);
 });
-app.get("/gameTime", (_req:any, res:any) => {
+app.get("/gameTime", (req:any, res:any) => {
   if (allClients.length === 6) {
     res.json(true);
   } else {

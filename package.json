@@ -2,10 +2,8 @@
     "name": "heroku-starter-project",
     "scripts": {
         "start": "cd ./src/client && npm start",
-        "build-client": "cd ./src/client && npm run build",
-        "server": "nodemon --watch ./src/server ./src/server/server.js",
+        "server": "nodemon --watch ./src/server ./src/server/server.ts",
         "deploy": "gulp deploy",
-        "build-and-deploy": "npm run build-client && npm run deploy",
         "lint": "eslint ./src --ext .ts",
         "lint-fix": "eslint ./src --ext .ts --fix",
         "jest": "jest"
