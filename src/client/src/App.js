@@ -1,6 +1,5 @@
 import React from "react";
 import "./App.css";
-import io from "socket.io-client";
 import Welcome from "./routes/welcome";
 import Words from "./routes/words";
 import Drawing from "./routes/drawing";
