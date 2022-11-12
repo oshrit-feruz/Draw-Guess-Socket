@@ -16,6 +16,7 @@ function App() {
   const [users, setUsers] = useState();
   const [chossenWord, setChossenWord] = useState();
   const [id, setId] = useState();
+  const [score, setScore] = useState(0);
   useEffect(() => {
     let mounted = true;
     async function getData() {
@@ -48,7 +49,7 @@ function App() {
 
   return (
     <>
-    <h3>your score:</h3>
+    <h3>your score:{score}</h3>
       <Routes>
         <Route path="/" element={<Welcome users={users} id={id} />}></Route>
         <Route
@@ -59,7 +60,7 @@ function App() {
         ></Route>
         <Route path="/drawing" element={<Drawing />}></Route>
         <Route path="/waiting" element={<Loading />}></Route>
-        <Route path="/guessing" element={<Guessing />}></Route>
+        <Route path="/guessing" element={<Guessing score={score} setScore={setScore}/>}></Route>
         {/* <Route path="/drawing" element={<Container />}></Route>
         <Route path="/words" element={<WordChoosing />}></Route>
         <Route path="/waiting" element={<Waiting />}></Route> */}
