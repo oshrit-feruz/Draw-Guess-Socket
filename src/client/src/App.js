@@ -20,42 +20,35 @@ function App() {
     let mounted = true;
     async function getData() {
       socket.on("connect", () => {
-        console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+        axios.get("/usersCount").then((res) => {
+          console.log("id:", res.data);
+          setId(res.data);
+        });
       });
-
-      // let HOST = window.location.origin.replace(/^http/, "ws");
-      // const ws = await new WebSocket("ws://localhost:5000/");
-      // console.log(HOST);
-      // ws.onmessage = (message) => {
-      //   console.log(message);
-      // };
-      // axios.get("/usersCount").then((res) => {
-      //   console.log("id:", res.data);
-      //   setId(res.data);
-      // });
     }
     getData();
     return () => (
       socket.on("disconnect", () => {
-        console.log(socket.id); 
+        console.log(socket.id);
       }),
-      mounted = false);
+      (mounted = false)
+    );
   }, []);
 
   useEffect(() => {
-    console.log("yes", chossenWord);
-    // axios.post('/insertWord',chossenWord)
+    axios.post("/insertWord", chossenWord);
   }, [chossenWord]);
 
-  // setInterval(() => {
-  //   const usersCount = axios.get("/usersCount").then((res) => {
-  //     setUsers(res.data);
-  //     console.log(res.data);
-  //   });
-  // }, 15000);
+  setInterval(() => {
+    const usersCount = axios.get("/usersCount").then((res) => {
+      setUsers(res.data);
+      console.log(res.data);
+    });
+  }, 13000);
 
   return (
     <>
+    <h3>your score:</h3>
       <Routes>
         <Route path="/" element={<Welcome users={users} id={id} />}></Route>
         <Route

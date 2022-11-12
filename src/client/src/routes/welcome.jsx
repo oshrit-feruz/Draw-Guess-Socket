@@ -11,8 +11,9 @@ function Welcome(props) {
   useEffect(() => {
     console.log(route);
     console.log(props.users);
-    if(props.users===2){
-
+    if (props.users === 1) {
+      setRoute();
+    } else if (props.users === 2) {
       if (props.id === 1) {
         setRoute("words");
       } else if (props.id === 2) {

@@ -4,11 +4,12 @@ import Board from "./Board";
 import "./style.css";
 
 class Container extends React.Component {
+  
   constructor(props) {
     super(props);
 
     this.state = {
-      color: "#000000",
+      color: props.color,
       size: "5",
     };
   }
@@ -26,8 +27,9 @@ class Container extends React.Component {
   }
 
   render() {
-    return (
-      <div className="container">
+    let tools;
+    if(this.state.color !== "rgba(131, 81, 81, 0)") {
+      tools = (
         <div class="tools-section">
           <div className="color-picker-container">
             Select Brush Color : &nbsp;
@@ -37,13 +39,10 @@ class Container extends React.Component {
               onChange={this.changeColor.bind(this)}
             />
           </div>
-
+  
           <div className="brushsize-container">
             Select Brush Size : &nbsp;
-            <select
-              value={this.state.size}
-              onChange={this.changeSize.bind(this)}
-            >
+            <select value={this.state.size} onChange={this.changeSize.bind(this)}>
               <option> 5 </option>
               <option> 10 </option>
               <option> 15 </option>
@@ -53,7 +52,11 @@ class Container extends React.Component {
             </select>
           </div>
         </div>
-
+      );
+    }
+    return (
+      <div className="container">
+        {tools}
         <div class="board-container">
           <Board color={this.state.color} size={this.state.size}></Board>
         </div>

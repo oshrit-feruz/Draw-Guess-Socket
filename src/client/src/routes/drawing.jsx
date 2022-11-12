@@ -5,7 +5,7 @@ import Container from "../components/Container";
 export default function Drawing() {
   return (
     <>
-      <Container />
+      <Container color="#00000"/>
     </>
   );
 }

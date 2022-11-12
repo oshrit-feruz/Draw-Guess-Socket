@@ -9,13 +9,13 @@ export default function Loading() {
   });
 
   setInterval(() => {
-    const usersCount = axios.get("/chossenWord").then((res) => {
-      if (res.data!==undefined) {
+    const word = axios.get("/chossenWord").then((res) => {
+      if (Object.keys(res.data).length === 1) {
+       
         window.location = "http://localhost:3000/guessing";
       }
-      console.log(res.data);
     });
-  }, 3000);
+  }, 7000);
   return (
     <div className="waitingDuo">
       <h3>waiting for other player...</h3>

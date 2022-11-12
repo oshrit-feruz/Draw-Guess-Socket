@@ -1,32 +1,11 @@
-// let app = require("express")();
-// import http from "http";
-// import { init as initSocket, allClients } from "./socket";
-// import cors from "cors";
-// import express from "express";
-// import path from "path";
-// import bodyParser from 'body-parser';
-// import express from "express";
-// import path from "path";
-// let chossenWord: any;
-// let server = http.createServer(app);
-// app.use(cors())
-// var io = require('socket.io')(server);
-// const PORT = process.env.PORT || 5000;
-// initSocket(server);
-// var app = require('express')();
-// var http = require('http').createServer(app);
-// const io = require("socket.io")(http, {
-//   cors: {
-//     origin: "http://localhost:3000",
-//     methods: ["GET", "POST"],
-//     allowedHeaders: ["my-custom-header"],
-//     credentials: true
-//   }
-// });
 import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
-
+import bodyParser from "body-parser";
+import path from "path";
+let allClients: any[] = [];
+let chossenWord: any = undefined;
+let server_port = process.env.YOUR_PORT || process.env.PORT || 5000;
 const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
@@ -38,55 +17,54 @@ const io = new Server(httpServer, {
   }
 });
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
+
+
+// I push into array each user that get into my website
 io.on('connection', (socket: any) => {
-  console.log('User Online');
+  allClients.push(socket.id);
+  socket.on("disconnect", (_reason: any) => {
+    allClients = allClients.filter((client) => client !== socket.id);
 
-  socket.on('canvas-data', (data: any) => {
-    socket.broadcast.emit('canvas-data', data);
+    console.log('User Online', allClients.length);
+  }),
+    socket.on('canvas-data', (data: any) => {
+      socket.broadcast.emit('canvas-data', data);
 
+    })
+})
+
+// Send back the number of the user to know if they could play
+app.get("/usersCount", (_req: any, res: any) => {
+  console.log(allClients.length);
+  res.json(allClients.length);
+});
+
+// while client choose word 
+app.post('/insertWord', (request: any, response: any) => {
+  console.log(request.body);
+  chossenWord = request.body;
+  response.send(({ response: 'you succsess!' }))
+})
+
+// send the word to the guesser react state
+app.get("/chossenWord", (_req: any, res: any) => {
+  console.log(chossenWord);
+  if (chossenWord) {
+
+    res.json(chossenWord);
+  }
+});
+
+app.get("/id", (_req: any, res: any) => {
+  res.json(allClients.length + 1);
+});
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('build'))
+  app.get('*', (_req: any, res: any) => {
+    res.sendFile(path.join(__dirname, '../build', 'index.html'))
   })
-})
-
-// var server_port = process.env.YOUR_PORT || process.env.PORT || 5000;
-// http.listen(server_port, () => {
-// console.log("Started on : "+ server_port);
-// })
-
-// app.use(bodyParser.json())
-
-// app.post('/insertWord', (request: any, response: any) => {
-//   console.log(request.body);
-//   chossenWord = request.body;
-//   response.send(({ response: 'you succsess!' }))
-// })
-
-// app.get("/chossenWord", (_req: any, res: any) => {
-//   res.json(chossenWord);
-// });
-// app.get("/usersCount", (_req:any, res:any) => {
-//   res.json(allClients.length);
-// });
-// app.get("/id", (_req:any, res:any) => {
-//   console.log(allClients);
-//   res.json(allClients[allClients.length-1]);
-// });
-// app.get("/gameTime", (_req:any, res:any) => {
-//   if (allClients.length === 6) {
-//     res.json(true);
-//   } else {
-//     res.json(false);
-//   }
-// });
-
-let server_port = process.env.YOUR_PORT || process.env.PORT || 5000;
-httpServer.listen(server_port, () => {
-  console.log("Started on : " + server_port);
-})
-// if (process.env.NODE_ENV === 'production') {
-//   app.use(express.static('build'))
-//   app.get('*', (_req: any, res: any) => {
-//     res.sendFile(path.join(__dirname, '../build', 'index.html'))
-//   })
-// }
-// http.listen(PORT, () => console.log(`Listening on ${PORT}`));
+}
+httpServer.listen(server_port, () => console.log(`Listening on ${server_port}`));

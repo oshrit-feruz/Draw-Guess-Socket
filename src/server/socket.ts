@@ -41,7 +41,9 @@ export function init(server: http.Server<typeof http.IncomingMessage, typeof htt
 
     connection.on("close", (_code: any, _desc: any) => {
       console.log("closed: ", id);
-      allClients.pop()
+  
+      allClients = allClients.filter((client) => client.id !== id);
+     
       console.log(allClients.length);
     });
 

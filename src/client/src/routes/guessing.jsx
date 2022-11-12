@@ -5,7 +5,7 @@ import Container from "../components/Container";
 export default function Guessing() {
   return (
     <>
-      <Container />
+      <Container color="rgba(131, 81, 81, 0)" />
     </>
   );
 }
