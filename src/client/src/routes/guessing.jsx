@@ -15,9 +15,7 @@ export default function Guessing(props) {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
-    console.log(word);
 
-    console.log(Object.values(data)[0]);
     if (Object.values(data) == word) {
       if (wordLength < 5) {
         props.setScore(props.score + 1);
@@ -43,7 +41,8 @@ export default function Guessing(props) {
     async function getData() {
       axios.get("/chossenWord").then((res) => {
         setWord(Object.keys(res.data)[0]);
-        setWordLength(Object.keys(res.data)[0].length);
+        console.log(Object.keys(res.data)[0],Object.keys(res.data)[0]?.length);
+        setWordLength(Object.keys(res.data)[0]?.length);
       });
     }
     getData();

@@ -8,20 +8,11 @@ import Container from "../components/Container";
 export default function Drawing() {
   const [next, setNext] = useState(null);
 
-
-  useEffect(() => {
-    let mounted = true;
-    async function restart() {
-      axios.post("/nextGamePost", [false]).then((res)=>console.log("res"));
-    }
-    restart();
-    return () => (mounted = false);
-  }, []);
   setInterval(() => {
     const nextGame = axios.get("/nextGameGet").then((res) => {
-      console.log(res);
       if (res.data[0]) {
         
+      axios.post("/nextGamePost", [false]).then((res) => console.log(res));
         setNext(
           <>
             <Navigate to="/waiting" />;

@@ -9,8 +9,6 @@ function Welcome(props) {
   const [route, setRoute] = useState();
 
   useEffect(() => {
-    console.log(route);
-    console.log(props.users);
     if (props.users === 1) {
       setRoute();
     } else if (props.users === 2) {

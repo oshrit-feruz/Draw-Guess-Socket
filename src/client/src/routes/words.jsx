@@ -84,10 +84,8 @@ export default function Words(props) {
     } else {
       let wordsList = randomWords({ exactly: 30, minLength: 6 });
       setWords(wordsList);
-      console.log(wordsList);
     }
 
-    axios.post("/nextGamePost", [false]).then((res)=>console.log(res));
   }, [level]);
 
   const word = words.map((singleWord) => {
@@ -97,7 +95,6 @@ export default function Words(props) {
       (level === "medium" && singleWord.length == 5) ||
       (level === "hard" && singleWord.length > 5)
     ) {
-      console.log(chossenLevel);
       return (
         <div
           className="wordsButton"
