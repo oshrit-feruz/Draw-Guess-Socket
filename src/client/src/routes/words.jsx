@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
+import axios from "axios";
 import ButtonBase from "@mui/material/ButtonBase";
 import Typography from "@mui/material/Typography";
 import randomWords from "random-words";
@@ -85,6 +86,8 @@ export default function Words(props) {
       setWords(wordsList);
       console.log(wordsList);
     }
+
+    axios.post("/nextGamePost", [false]).then((res)=>console.log(res));
   }, [level]);
 
   const word = words.map((singleWord) => {
@@ -96,22 +99,18 @@ export default function Words(props) {
     ) {
       console.log(chossenLevel);
       return (
-        <div className="wordsButton" 
-        onClick={()=>
-          props.setChossenWord(singleWord)
-        }
-        key={singleWord}>
+        <div
+          className="wordsButton"
+          onClick={() => props.setChossenWord(singleWord)}
+          key={singleWord}
+        >
           <Link
             to="/drawing"
             state={{
               level: chossenLevel,
             }}
           >
-            <Button
-              variant="outlined"
-            >
-              {singleWord}
-            </Button>
+            <Button variant="outlined">{singleWord}</Button>
           </Link>
         </div>
       );

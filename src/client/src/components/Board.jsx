@@ -3,7 +3,7 @@ import React from "react";
 import "./style.css";
 import { io } from "socket.io-client";
 
-export const socket = io("http://localhost:5000", {
+export const socket = io("https://draw-guess-stream.herokuapp.com", {
   withCredentials: true,
   extraHeaders: {
     "my-custom-header": "abcd",

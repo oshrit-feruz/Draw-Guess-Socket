@@ -27,8 +27,8 @@ function Welcome(props) {
       <img src={logo} alt="logo" id="homePage"></img>
       <h3 id="homeText">
         {" "}
-        Draw and guess the words as fast as you can! Join on worldwide rooms or
-        create your own.
+        Draw and guess the words as fast as you can! 
+        Wait for another player - the 'start' button will apear while both of you be in the website:) .
       </h3>
 
       {route && (

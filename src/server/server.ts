@@ -5,12 +5,13 @@ import bodyParser from "body-parser";
 import path from "path";
 let allClients: any[] = [];
 let chossenWord: any = undefined;
+let nextGame: any = false;
 let server_port = process.env.YOUR_PORT || process.env.PORT || 5000;
 const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://draw-guess-stream.herokuapp.com",
     allowedHeaders: ["my-custom-header"],
 
     credentials: true
@@ -47,6 +48,16 @@ app.post('/insertWord', (request: any, response: any) => {
   console.log(request.body);
   chossenWord = request.body;
   response.send(({ response: 'you succsess!' }))
+})
+
+app.post('/nextGamePost', (request: any, response: any) => {
+  console.log(request.body);
+  nextGame = request.body;
+  response.send(({ response: nextGame }))
+})
+app.get('/nextGameGet', (_request: any, response: any) => {
+  response.json(nextGame)
+  console.log(nextGame);
 })
 
 // send the word to the guesser react state

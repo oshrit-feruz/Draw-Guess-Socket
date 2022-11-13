@@ -17,6 +17,7 @@ function App() {
   const [chossenWord, setChossenWord] = useState();
   const [id, setId] = useState();
   const [score, setScore] = useState(0);
+  
   useEffect(() => {
     let mounted = true;
     async function getData() {
@@ -37,19 +38,21 @@ function App() {
   }, []);
 
   useEffect(() => {
-    axios.post("/insertWord", chossenWord);
+    axios.post("/insertWord", chossenWord).then((res)=>console.log("res"));
   }, [chossenWord]);
 
-  setInterval(() => {
+  const interval =setInterval(() => { 
     const usersCount = axios.get("/usersCount").then((res) => {
       setUsers(res.data);
-      console.log(res.data);
+     if(res.data===2){
+      clearInterval(interval)
+     }
     });
-  }, 13000);
+  }, 8000);
 
   return (
     <>
-    <h3>your score:{score}</h3>
+    <h3 id="score">your score: {score}</h3>
       <Routes>
         <Route path="/" element={<Welcome users={users} id={id} />}></Route>
         <Route
